@@ -1,0 +1,24 @@
+<!-- card/index.ejs -->
+<div
+	data-aos="zoom-in"
+	class="flex flex-col card rounded"
+	onclick="handleClick('<%= title %>')"
+>
+	<figure class="rounded bg-gray-400 flex items-center justify-center p-2">
+		<!-- Add a class to the img tag -->
+		<img
+			src="<%= icon %>"
+			class="object-contain rounded-tl rounded-tr w-24"
+			alt="random fig"
+		/>
+	</figure>
+	<div class="card-body text-center rounded flex items-center justify-center">
+		<span><%= title %></span>
+	</div>
+</div>
+<script type="text/javascript">
+	function handleClick(title) {
+		const urlTitle = title.split(" ").join("-").toLowerCase();
+		location.assign(`/validator/${urlTitle}`);
+	}
+</script>

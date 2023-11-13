@@ -1,0 +1,8 @@
+<main class="main flex gap-y-3 items-center px-6 md:p-0 py-2 container mx-auto">
+	<% for(const card of cards) {%>
+	<!---->
+	<%- include('../../partials/card/index', {title: card.title, icon:
+	card.icon})%>
+	<!---->
+	<% } %>
+</main>

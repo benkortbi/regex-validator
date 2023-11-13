@@ -1,0 +1,84 @@
+<main class="flex flex-col items-center py-5 container mx-auto">
+	<div class="return__container">
+		<%- include('../../partials/back_button/backButton') %>
+	</div>
+	<section><%- include('../../partials/title/index') %></section>
+	<form id="form" class="mt-12 flex flex-col items-center gap-8">
+		<%- include('../../partials/input/index') %>
+		<span id="loader" class="loader"></span>
+		<!---->
+		<%- include('../../partials/button/index') %>
+	</form>
+	<section id="alert" class="mt-12"></section>
+</main>
+<script>
+	//catch DOM
+	const form = document.getElementById("form");
+	const input = document.getElementById("input");
+	const alertMessage = document.getElementById("alert");
+	const loader = document.getElementById("loader");
+	const submitter = document.getElementById("submitter");
+	//alerts
+	const successAlert = `
+				<div class="alert alert-success">
+	       <strong class='mr-2'>Success!</strong> valid.
+	       </div>`;
+	const errorAlert = `
+				<div class="alert alert-error">
+	       <strong class='mr-2'>Error!</strong> not valid.
+	       </div>`;
+
+	//submit fn
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault();
+		//start loading =>
+		loader.innerHTML = "loading...";
+		submitter.disabled = true;
+
+		//gather data
+		const inputValue = input.value;
+		const inputType = input.dataset.type;
+
+		//logic
+		if (Boolean(inputValue.length)) {
+			fetcher("http://localhost:3000/validator/isValid", inputValue, inputType);
+		} else {
+			resseter();
+		}
+	});
+	//fetcher
+	async function fetcher(url, val, type) {
+		try {
+			//reset
+			const data = await fetch(url, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ input: val, type }),
+			});
+			const res = await data.json();
+			//display alert
+			alertRender(res);
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+	//resetter
+	function resseter() {
+		input.value = "";
+		alertMessage.innerHTML = "";
+		loader.innerHTML = "";
+		submitter.disabled = false;
+	}
+
+	//alert render
+	function alertRender(data) {
+		resseter();
+		if (data?.isValid) {
+			alertMessage.innerHTML = successAlert;
+		} else {
+			alertMessage.innerHTML = errorAlert;
+		}
+	}
+</script>

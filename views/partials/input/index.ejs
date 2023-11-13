@@ -1,0 +1,8 @@
+<input
+	type="<%= currPage === 'number' ? 'number' : 'text' %>"
+	placeholder="<%= currPage == 'number' ? 'Enter your number' : currPage == 'email' ? 'Enter your email' : 'Enter your username' %>"
+	class="input rounded-md p-3"
+	id="input"
+	autofocus
+	data-type="<%- currPage == 'number' ? 'number' : currPage == 'email' ? 'email' : 'text' %>"
+/>
