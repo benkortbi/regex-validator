@@ -41,7 +41,11 @@
 
 		//logic
 		if (Boolean(inputValue.length)) {
-			fetcher("http://localhost:3000/validator/isValid", inputValue, inputType);
+			fetcher(
+				"https://regex-validator.onrender.com/validator/isValid",
+				inputValue,
+				inputType
+			);
 		} else {
 			resseter();
 		}
