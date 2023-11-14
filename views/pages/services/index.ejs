@@ -62,9 +62,6 @@
 				body: JSON.stringify({ input: val, type }),
 			});
 			const res = await data.json();
-			if (data.ok) {
-				console.log(res);
-			}
 			//display alert
 			alertRender(res);
 		} catch (error) {
