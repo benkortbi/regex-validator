@@ -1,5 +1,6 @@
 {
 	"name": "validator",
+	"proxy": "https://regex-validator.onrender.com",
 	"version": "1.0.0",
 	"description": "checker for different varieties of inputs",
 	"main": "server.js",
